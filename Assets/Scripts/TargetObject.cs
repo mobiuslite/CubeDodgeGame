@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Attack one gameobject to another with smoothing and offsets
 public class TargetObject : MonoBehaviour
 {
     public GameObject target;

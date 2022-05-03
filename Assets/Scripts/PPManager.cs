@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+//handles changing between different types of post-processing
 public class PPManager : MonoBehaviour
 {
     public static PPManager Instance { get; private set; }

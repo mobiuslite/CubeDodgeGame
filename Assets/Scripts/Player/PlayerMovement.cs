@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Handles player movement, dashing, and collision
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = Mathf.SmoothDamp(velocity.y, movementDir.y, ref veloYSmoothing, usedSmoothing, Mathf.Infinity, Time.unscaledDeltaTime);
 
         controller.Move(velocity * Time.unscaledDeltaTime);
+        //transform.Translate(velocity * Time.unscaledDeltaTime, Space.World);
         dash.Update(Time.unscaledDeltaTime);
     }
 

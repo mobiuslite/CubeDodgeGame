@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script originally by Sebastian Lague
+//https://github.com/SebLague/2DPlatformer-Tutorial
 
 public class Controller : RaycastController
 {

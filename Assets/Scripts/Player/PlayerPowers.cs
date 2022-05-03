@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Handles player timestop
 public class PlayerPowers : MonoBehaviour
 {
     [SerializeField]
