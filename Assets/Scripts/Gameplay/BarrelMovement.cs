@@ -6,7 +6,7 @@ using UnityEngine;
 public class BarrelMovement : MonoBehaviour
 {
     [SerializeField]
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 2.0f)]
     float frictionConstant;
     [SerializeField]
     float kickRadius;
@@ -44,8 +44,11 @@ public class BarrelMovement : MonoBehaviour
 
             Debug.Log("removed closest Barrel");
         }
+    }
 
-        if(rb.velocity != Vector2.zero)
+    private void FixedUpdate()
+    {
+        if (rb.velocity != Vector2.zero)
         {
             rb.AddForce(-rb.velocity * frictionConstant);
         }
