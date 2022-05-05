@@ -15,6 +15,13 @@ public class BarrelMovement : MonoBehaviour
     [Tooltip("The minimum magnitude needed to explode on contact")]
     float magnitudeForExplosion;
 
+    [Header("Effects")]
+    [SerializeField]
+    float screenShakeIntensity = 8.0f;
+    [Range(0.01f, 5.0f)]
+    [SerializeField]
+    float screenShakeTime = 0.4f;
+
     bool closeToPlayer;
 
     PlayerPowers playerPowers;
@@ -123,6 +130,8 @@ public class BarrelMovement : MonoBehaviour
     {
         Debug.Log("Explode!");
         Destroy(gameObject);
+
+        CameraShake.Instance.Shake(screenShakeIntensity, screenShakeTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
