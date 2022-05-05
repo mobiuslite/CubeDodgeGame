@@ -9,8 +9,16 @@ public class PlayerPowers : MonoBehaviour
     float timestopLength;
     [SerializeField]
     float timestopCooldown;
+    [SerializeField]
+    float kickStrength;
+
+    [SerializeField]
+    float barrelLineLength;
 
     CooldownAbility timestop;
+
+    BarrelMovement closestBarrel;
+    LineRenderer barrelDirLine;
 
     private void Start()
     {
@@ -20,13 +28,42 @@ public class PlayerPowers : MonoBehaviour
 
         timestop.OnAbilityExit += (sender, args) => StartTime();
         timestop.OnAbilityExit += (sender, args) => PPManager.Instance.StopTimestopPP();
+
+        closestBarrel = null;
+
+        barrelDirLine = GetComponent<LineRenderer>();
     }
 
     private void Update()
     {
-        if(Input.GetAxisRaw("Power") > 0.25f && timestop.CanUseAbility())
+        bool powerButtonDown = Input.GetButtonDown("Power");
+
+        if (powerButtonDown && timestop.CanUseAbility())
         {
             timestop.Use();
+        }
+        else if(powerButtonDown && timestop.AbilityIsActive())
+        {
+            timestop.CancelAbility();
+        }
+
+        if (Input.GetButtonDown("Kick") && closestBarrel != null)
+        {
+            Vector3 direction = (closestBarrel.transform.position - transform.position).normalized;
+
+            closestBarrel.Kick(direction * kickStrength);
+            closestBarrel = null;
+
+            barrelDirLine.enabled = false;
+        }
+
+        if(closestBarrel != null)
+        {
+            Vector3 barrelPos = closestBarrel.transform.position;
+            Vector3 dir = (barrelPos - transform.position).normalized;
+
+            barrelDirLine.SetPosition(0, barrelPos);         
+            barrelDirLine.SetPosition(1, barrelPos + (dir * barrelLineLength));
         }
 
         timestop.Update(Time.unscaledDeltaTime);
@@ -35,6 +72,27 @@ public class PlayerPowers : MonoBehaviour
     public CooldownAbility GetTimestop()
     {
         return timestop;
+    }
+    
+    public void SetClosestBarrel(BarrelMovement barrel)
+    {
+        if(barrel == null)
+        {
+            closestBarrel = null;
+            barrelDirLine.enabled = false;
+            return;
+        }
+
+        if(closestBarrel == null)
+        {
+            closestBarrel = barrel;          
+        }
+        else if((transform.position - barrel.transform.position).sqrMagnitude < (transform.position - closestBarrel.transform.position).sqrMagnitude)
+        {
+            closestBarrel = barrel;
+        }
+
+        barrelDirLine.enabled = true;
     }
 
     void StopTime()

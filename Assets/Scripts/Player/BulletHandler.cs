@@ -11,9 +11,12 @@ public class BulletHandler : MonoBehaviour
     [SerializeField]
     float lifeTime = 5.0f;
 
-    float elapsedLifeTime = 0.0f;
-
     CooldownAbility timestop;
+
+    private void Start()
+    {
+        Destroy(gameObject, lifeTime);
+    }
 
     void Update()
     {
@@ -26,15 +29,6 @@ public class BulletHandler : MonoBehaviour
                     transform.Translate(Vector3.right * (distance > distanceToSlowdown ? slowFlySpeed : distance / distanceToSlowdown * slowFlySpeed) * Time.unscaledDeltaTime);
                 else if (distance < -0.5f)
                     transform.Translate(Vector3.right * slowFlySpeed * Time.unscaledDeltaTime);
-            }
-            else
-            {
-                elapsedLifeTime += Time.deltaTime;
-            }
-
-            if (elapsedLifeTime > lifeTime)
-            {
-                DeleteBullet();
             }
         }
     }

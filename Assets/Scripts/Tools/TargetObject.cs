@@ -32,5 +32,7 @@ public class TargetObject : MonoBehaviour
 
         Vector3 camSmoothOut = Vector3.zero;
         transform.position = Vector3.SmoothDamp(transform.position, toPosition, ref camSmoothOut, smoothAmount, Mathf.Infinity, Time.unscaledDeltaTime);
+
+        //transform.position = toPosition;
     }
 }
