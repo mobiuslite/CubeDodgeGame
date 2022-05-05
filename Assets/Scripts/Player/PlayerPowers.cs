@@ -74,6 +74,7 @@ public class PlayerPowers : MonoBehaviour
         return timestop;
     }
     
+    //Receives a barrel, and updates the closest barrel if it is closer.
     public void SetClosestBarrel(BarrelMovement barrel)
     {
         if(barrel == null)
@@ -93,6 +94,11 @@ public class PlayerPowers : MonoBehaviour
         }
 
         barrelDirLine.enabled = true;
+    }
+
+    public BarrelMovement GetClosestBarrel()
+    {
+        return closestBarrel;
     }
 
     void StopTime()
