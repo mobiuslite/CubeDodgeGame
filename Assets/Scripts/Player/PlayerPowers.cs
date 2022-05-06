@@ -5,10 +5,15 @@ using UnityEngine;
 //Handles player timestop
 public class PlayerPowers : MonoBehaviour
 {
+    [Range(0.0f, 30.0f)]
     [SerializeField]
     float timestopLength;
+
+    [Range(0.0f, 30.0f)]
     [SerializeField]
     float timestopCooldown;
+
+    [Range(0.0f, 100.0f)]
     [SerializeField]
     float kickStrength;
 
@@ -32,6 +37,7 @@ public class PlayerPowers : MonoBehaviour
         closestBarrel = null;
 
         barrelDirLine = GetComponent<LineRenderer>();
+        barrelDirLine.positionCount = 2;
     }
 
     private void Update()

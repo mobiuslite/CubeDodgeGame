@@ -37,7 +37,9 @@ public class BarrelMovement : MonoBehaviour
         playerPowers = player.GetComponent<PlayerPowers>();
 
         rb = GetComponent<Rigidbody2D>();
+
         storedEnergyLine = GetComponent<LineRenderer>();
+        storedEnergyLine.positionCount = 2;
 
         closeToPlayer = false;
 
@@ -115,6 +117,10 @@ public class BarrelMovement : MonoBehaviour
         //Stores energy if time is stopped to be applied on time continue
         else
         {
+            //sets velocity to zero
+            //this is so that the barrel's stored energy line is actually accurate.
+            rb.velocity = Vector3.zero;
+
             storedEnergy += (Vector2)velocity;
             closeToPlayer = false;
         }
@@ -129,9 +135,15 @@ public class BarrelMovement : MonoBehaviour
     private void Explode()
     {
         Debug.Log("Explode!");
-        Destroy(gameObject);
-
         CameraShake.Instance.Shake(screenShakeIntensity, screenShakeTime);
+
+        storedEnergyLine.positionCount = 0;
+
+        //removes barrel from player since it has exploded
+        if (playerPowers.GetClosestBarrel() == this)
+            playerPowers.SetClosestBarrel(null);
+
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

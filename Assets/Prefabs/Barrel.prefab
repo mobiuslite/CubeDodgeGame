@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5416242093693459306}
   - component: {fileID: 5416242093693459311}
   - component: {fileID: 5416242093693459310}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frictionConstant: 1.83
   kickRadius: 3.38
+  magnitudeForExplosion: 0
+  screenShakeIntensity: 8
+  screenShakeTime: 0.4
 --- !u!58 &5416242093693459306
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,9 +183,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

@@ -35,8 +35,11 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector2.zero;
 
         dash = new CooldownAbility(dashCooldown, dashLength);
-        dash.OnAbilityEnter += (sender, args) => DisableCollision();
-        dash.OnAbilityExit += (sender, args) => EnableCollision();
+        //dash.OnAbilityEnter += (sender, args) => DisableCollision();
+        dash.OnAbilityEnter += (sender, args) => controller.UseDashMask();
+
+        //dash.OnAbilityExit += (sender, args) => EnableCollision();
+        dash.OnAbilityExit += (sender, args) => controller.UseRegularMask();
     }
 
     private void Update()

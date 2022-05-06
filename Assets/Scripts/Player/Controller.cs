@@ -8,13 +8,19 @@ using UnityEngine;
 public class Controller : RaycastController
 {
     public CollisionInfo collisionInfo;
-    //PlayerMovement player;
+    [SerializeField]
+    [Tooltip("The layers that will still stop the player from dashing")]
+    LayerMask dashMask;
+
+    private LayerMask usedMask;
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         //player = GetComponent<PlayerMovement>();
+
+        UseRegularMask();
     }
 
     // Update is called once per frame
@@ -35,6 +41,16 @@ public class Controller : RaycastController
         transform.Translate(velo, Space.World);
     }
 
+    public void UseDashMask()
+    {
+        usedMask = dashMask;
+    }
+
+    public void UseRegularMask()
+    {
+        usedMask = mask;
+    }
+
     void HorizontalCollisions(ref Vector2 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
@@ -43,7 +59,7 @@ public class Controller : RaycastController
         {
             Vector2 rayOrigin = (directionX == -1.0f) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, mask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, usedMask);
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
 
@@ -66,7 +82,7 @@ public class Controller : RaycastController
         {
             Vector2 rayOrigin = (directionY == -1.0f) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticleRaySpacing * i + velocity.x);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, mask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, usedMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
