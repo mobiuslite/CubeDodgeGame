@@ -16,6 +16,10 @@ public class CircleAttack : BossState
         this.numBullets = numBullets;
         numAttacks = numberAttacks;
         timeBwtAttacks = timeBetweenAttacks;
+
+        float angleBetweenBullet = numBullets / 360.0f;
+
+        float angleBetweenAttacks = angleBetweenBullet / numAttacks;
     }
 
     // Update is called once per frame

@@ -54,6 +54,7 @@ public class CameraShake : MonoBehaviour
     {
         shakeTime = time;
         this.intensity = intensity;
+        elapsedShakeTime = 0.0f;
 
         shaking = true;
     }
