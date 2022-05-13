@@ -180,6 +180,9 @@ MonoBehaviour:
   slowFlySpeed: 20
   distanceToSlowdown: 7.5
   lifeTime: 5
+  detectAllBut:
+    serializedVersion: 2
+    m_Bits: 264
 --- !u!58 &4199008254167741311
 CircleCollider2D:
   m_ObjectHideFlags: 0

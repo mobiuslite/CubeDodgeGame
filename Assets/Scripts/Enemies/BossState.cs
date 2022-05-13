@@ -11,17 +11,20 @@ public class BossState
     protected BossStateMachine parent;
 
     protected int curCondition;
+    protected Boss boss;
 
     private BossState()
     {
         curCondition = 0;
     }
 
-    public BossState(string name)
+    public BossState(string name, Boss boss)
     {
         transitions = new Dictionary<int, BossState>();
         curCondition = 0;
         stateName = name;
+
+        this.boss = boss;
     }
 
     public virtual void Update(float dt)

@@ -12,19 +12,20 @@ public class Boss : MonoBehaviour
     [Range(1.0f, 100.0f)]
     protected float speed;
 
-    [SerializeField]
-    GameObject prjPrefab;
-
     protected BossStateMachine stateMachine;
-    void Start()
+
+    public Boss()
     {
         stateMachine = new BossStateMachine();
-        stateMachine.SetProjectile(prjPrefab);
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetCurrentState()
     {
-        stateMachine.Update(Time.deltaTime);
+        if(stateMachine == null || stateMachine.GetState() == null)
+        {
+            return "None";
+        }
+
+        return stateMachine.GetState().stateName;
     }
 }

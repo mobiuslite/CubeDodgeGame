@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Boss))]
+[CustomEditor(typeof(Boss), true)]
 public class BossEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -12,9 +12,9 @@ public class BossEditor : Editor
 
         Boss boss = (Boss)target;
 
-       // if (GUILayout.Button("Add State"))
-       // {
-       //
-       // }
+        var style = GUI.skin.GetStyle("label");
+        style.fontSize = 24;
+
+        GUILayout.Label("Current state: " + boss.GetCurrentState(), style);
     }
 }

@@ -11,6 +11,9 @@ public class BulletHandler : MonoBehaviour
     [SerializeField]
     float lifeTime = 5.0f;
 
+    [SerializeField]
+    LayerMask detectAllBut;
+
     CooldownAbility timestop;
 
     private void Start()
@@ -39,7 +42,10 @@ public class BulletHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        DeleteBullet();
+        if(!LayerTools.IsInLayerMask(collision.gameObject, detectAllBut))
+        {
+            DeleteBullet();
+        }      
     }
 
     private void DeleteBullet()
@@ -52,7 +58,7 @@ public class BulletHandler : MonoBehaviour
         RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right, Mathf.Infinity,
 
             //Detects all layers except bullet, bullet casing, and player
-            ~LayerMask.GetMask(new string[] { "PlayerBullet", "Player"}));
+            ~detectAllBut);
 
         Debug.DrawRay(transform.position, transform.right * raycast.distance, Color.green);
 

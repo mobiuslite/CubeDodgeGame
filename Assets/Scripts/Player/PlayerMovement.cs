@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Range(0.001f, 0.1f)]
     float smoothing;
+    [SerializeField]
+    LayerMask damageMask;
 
     [Header("Abilities (Don't update on runtime)")]
     [SerializeField]
@@ -66,6 +68,14 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.unscaledDeltaTime);
         //transform.Translate(velocity * Time.unscaledDeltaTime, Space.World);
         dash.Update(Time.unscaledDeltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+        {
+            Debug.Log("Take Damage!");
+        }
     }
 
     void EnableCollision()
