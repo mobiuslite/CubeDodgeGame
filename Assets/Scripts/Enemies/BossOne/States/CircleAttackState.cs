@@ -13,8 +13,9 @@ public class CircleAttackState : BossState
 
     float curAngle = 0.0f;
 
-    float angleBetweenAttacks;
     float angleBetweenBullet;
+
+    const float angleBetweenAttacks = 3.5f;
 
     public CircleAttackState(int numBullets, int numberAttacks, float timeBetweenAttacks, Boss boss) : base("Circle Attack State", boss)
     {
@@ -23,12 +24,12 @@ public class CircleAttackState : BossState
         attackTime = timeBetweenAttacks;
 
         angleBetweenBullet = 360.0f / numBullets;
-        angleBetweenAttacks = 3.5f;
     }
 
     // Update is called once per frame
     public override void Update(float dt)
     {
+        //Attack the number of times given, and wait the amount of time given between attacks
         elapsedAttackTime += dt;
         if(elapsedAttackTime >= attackTime)
         {
@@ -60,6 +61,8 @@ public class CircleAttackState : BossState
         for (int i = 0; i <= numBullets; i++)
         {
             //x = r * sin(0), y = r * cos(0)
+            //Find a point on a circle using the angle given, and get the direction to that point.
+            //Use that direction as the bu
             const float radius = 1.0f;
             const float bulletSpeed = 15.0f;
 

@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
     float smoothing;
     [SerializeField]
     LayerMask damageMask;
+    [Space]
+    [SerializeField]
+    LayerMask knockbackMask;
+    [SerializeField]
+    float knockbackAmount;
 
     [Header("Abilities (Don't update on runtime)")]
     [SerializeField]
@@ -21,9 +26,13 @@ public class PlayerMovement : MonoBehaviour
     float dashMultiplier;
     [SerializeField]
     float dashCooldown;
+    [SerializeField]
+    float dashTrailLength;
 
     Controller controller;
     BoxCollider2D boxCollider;
+
+    TrailRenderer dashTrail;
 
     Vector2 velocity;
 
@@ -33,15 +42,18 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<Controller>();
         boxCollider = GetComponent<BoxCollider2D>();
+        dashTrail = GetComponent<TrailRenderer>();
 
         velocity = Vector2.zero;
 
         dash = new CooldownAbility(dashCooldown, dashLength);
         //dash.OnAbilityEnter += (sender, args) => DisableCollision();
         dash.OnAbilityEnter += (sender, args) => controller.UseDashMask();
+        dash.OnAbilityEnter += (sender, args) => dashTrail.time = dashTrailLength;
 
         //dash.OnAbilityExit += (sender, args) => EnableCollision();
         dash.OnAbilityExit += (sender, args) => controller.UseRegularMask();
+        dash.OnAbilityExit += (sender, args) => dashTrail.time = 0.0f;
     }
 
     private void Update()
@@ -76,6 +88,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Take Damage!");
         }
+        else if(LayerTools.IsInLayerMask(collision.gameObject, knockbackMask))
+        {
+            Vector2 dir = transform.position - collision.gameObject.transform.position;
+            Knockback(dir.normalized * knockbackAmount);
+        }
+    }
+
+    public void Knockback(Vector2 velocity)
+    {
+        this.velocity = velocity;
     }
 
     void EnableCollision()

@@ -24,15 +24,20 @@ public class PlayerPowers : MonoBehaviour
 
     BarrelMovement closestBarrel;
     LineRenderer barrelDirLine;
+    TrailRenderer dashTrail;
 
     private void Start()
     {
+        dashTrail = GetComponent<TrailRenderer>();
+
         timestop = new CooldownAbility(timestopCooldown, timestopLength);
         timestop.OnAbilityEnter += (sender, args) => StopTime();
         timestop.OnAbilityEnter += (sender, args) => PPManager.Instance.StartTimestopPP();
+        timestop.OnAbilityEnter += (sender, args) => dashTrail.enabled = false;
 
         timestop.OnAbilityExit += (sender, args) => StartTime();
         timestop.OnAbilityExit += (sender, args) => PPManager.Instance.StopTimestopPP();
+        timestop.OnAbilityExit += (sender, args) => dashTrail.enabled = true;
 
         closestBarrel = null;
 
