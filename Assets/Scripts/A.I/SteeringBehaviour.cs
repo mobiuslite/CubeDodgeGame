@@ -23,6 +23,8 @@ public class SteeringBehaviour : MonoBehaviour
 
     protected float ratio = 1.0f;
 
+    protected bool active = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +40,17 @@ public class SteeringBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 steer = CalculateSteeringForce();
-        ApplySteer(steer);
+        if (active)
+        {
+            Vector2 steer = CalculateSteeringForce();
+            ApplySteer(steer);
+        }
+    }
+
+    //Enables and disables the steering behaviour
+    public void SetActive(bool state)
+    {
+        active = state;
     }
 
     public virtual Vector3 CalculateSteeringForce()

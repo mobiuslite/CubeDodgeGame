@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Abilities (Don't update on runtime)")]
     [SerializeField]
-    [Range(0.001f, 0.25f)]
+    [Range(0.001f, 1.0f)]
     float dashLength;
     [SerializeField]
     float dashMultiplier;
@@ -47,11 +47,12 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector2.zero;
 
         dash = new CooldownAbility(dashCooldown, dashLength);
-        //dash.OnAbilityEnter += (sender, args) => DisableCollision();
+
+        dash.OnAbilityEnter += (sender, args) => DisableCollision();
         dash.OnAbilityEnter += (sender, args) => controller.UseDashMask();
         dash.OnAbilityEnter += (sender, args) => dashTrail.time = dashTrailLength;
 
-        //dash.OnAbilityExit += (sender, args) => EnableCollision();
+        dash.OnAbilityExit += (sender, args) => EnableCollision();
         dash.OnAbilityExit += (sender, args) => controller.UseRegularMask();
         dash.OnAbilityExit += (sender, args) => dashTrail.time = 0.0f;
     }
@@ -84,14 +85,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+        if (!dash.AbilityIsActive())
         {
-            Debug.Log("Take Damage!");
-        }
-        else if(LayerTools.IsInLayerMask(collision.gameObject, knockbackMask))
-        {
-            Vector2 dir = transform.position - collision.gameObject.transform.position;
-            Knockback(dir.normalized * knockbackAmount);
+            if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+            {
+                Debug.Log("Take Damage!");
+            }
+
+            if (LayerTools.IsInLayerMask(collision.gameObject, knockbackMask))
+            {
+                Vector2 dir = transform.position - collision.gameObject.transform.position;
+                Knockback(dir.normalized * knockbackAmount);
+            }
         }
     }
 
@@ -102,11 +107,11 @@ public class PlayerMovement : MonoBehaviour
 
     void EnableCollision()
     {
-        boxCollider.enabled = true;
+        boxCollider.isTrigger = false;
     }
 
     void DisableCollision()
     {
-        boxCollider.enabled = false;
+        boxCollider.isTrigger = true;
     }
 }

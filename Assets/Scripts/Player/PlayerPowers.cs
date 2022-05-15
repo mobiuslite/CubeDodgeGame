@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Handles player timestop
+//Handles player timestop and barrel kicking
 public class PlayerPowers : MonoBehaviour
 {
     [Range(0.0f, 30.0f)]

@@ -6,11 +6,11 @@ public class Boss : MonoBehaviour
 {
     [SerializeField]
     [Range(1.0f, 10000.0f)]
-    protected float health;
+    protected float maxHealth;
+    protected float currentHealth;
 
     [SerializeField]
-    [Range(1.0f, 100.0f)]
-    protected float speed;
+    LayerMask damageMask;
 
     protected BossStateMachine stateMachine;
 
@@ -27,5 +27,25 @@ public class Boss : MonoBehaviour
         }
 
         return stateMachine.GetState().stateName;
+    }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+        {
+            currentHealth -= 10.0f;
+            UIManager.Instance.SetBossHealth(currentHealth);
+
+            if(currentHealth <= 0.0f)
+            {
+                currentHealth = 0.0f;
+                OnDeath();
+            }
+        }
+    }
+
+    protected virtual void OnDeath()
+    {
+
     }
 }
