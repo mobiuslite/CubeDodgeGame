@@ -15,6 +15,9 @@ public class BossOne : Boss
     void Start()
     {
         currentHealth = maxHealth;
+
+        audioDictionary = GetComponent<AudioDictionary>();
+
         steeringBehaviour = GetComponent<SteeringBehaviour>();
         steeringBehaviour.SetActive(false);
 

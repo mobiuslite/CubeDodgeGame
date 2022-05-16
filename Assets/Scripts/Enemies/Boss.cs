@@ -13,6 +13,7 @@ public class Boss : MonoBehaviour
     LayerMask damageMask;
 
     protected BossStateMachine stateMachine;
+    protected AudioDictionary audioDictionary;
 
     public Boss()
     {
@@ -27,6 +28,11 @@ public class Boss : MonoBehaviour
         }
 
         return stateMachine.GetState().stateName;
+    }
+
+    public AudioDictionary GetAudioDictionary()
+    {
+        return audioDictionary;
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PowerType
+{
+    Timestop
+}
+
 //Handles player timestop and barrel kicking
 public class PlayerPowers : MonoBehaviour
 {
@@ -26,7 +31,7 @@ public class PlayerPowers : MonoBehaviour
     LineRenderer barrelDirLine;
     TrailRenderer dashTrail;
 
-    private void Start()
+    private void Awake()
     {
         dashTrail = GetComponent<TrailRenderer>();
 

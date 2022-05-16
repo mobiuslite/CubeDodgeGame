@@ -60,9 +60,24 @@ public class CooldownAbility
         return abilityActive;
     }
 
+    public bool CooldownIsActive()
+    {
+        return cooldownActive;
+    }
+
     public bool CanUseAbility()
     {
         return !cooldownActive && !abilityActive;
+    }
+
+    public float AbilityValue()
+    {
+        return elapsedAbility / abilityLength;
+    }
+
+    public float CooldownValue()
+    {
+        return elapsedCooldown / cooldownLength;
     }
 
     // Update is called once per frame
