@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
     float maxHealth;
     float currentHealth;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
     }
