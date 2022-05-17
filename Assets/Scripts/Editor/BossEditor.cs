@@ -13,8 +13,10 @@ public class BossEditor : Editor
         Boss boss = (Boss)target;
 
         var style = GUI.skin.GetStyle("label");
-        style.fontSize = 24;
+        style.fontSize = 20;
 
         GUILayout.Label("Current state: " + boss.GetCurrentState(), style);
+
+        style.fontSize = 12;
     }
 }

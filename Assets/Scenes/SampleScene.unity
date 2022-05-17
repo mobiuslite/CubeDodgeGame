@@ -1434,6 +1434,22 @@ PrefabInstance:
       value: 3.94
       objectReference: {fileID: 0}
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageAmount
+      value: 238.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageRadius
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: explosionRadius
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageMask.m_Bits
+      value: 4104
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: magnitudeForExplosion
       value: 5.76
       objectReference: {fileID: 0}
@@ -1870,6 +1886,7 @@ GameObject:
   - component: {fileID: 1392148901}
   - component: {fileID: 1392148904}
   - component: {fileID: 1392148902}
+  - component: {fileID: 1392148906}
   m_Layer: 12
   m_Name: Boss
   m_TagString: Untagged
@@ -2009,7 +2026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d817275fd906ce46bd4a029da50c276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1579
   damageMask:
     serializedVersion: 2
     m_Bits: 256
@@ -2162,6 +2178,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1392148906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392148895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61188e1ba3f175b4dbbf4bf6491e84b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1898
 --- !u!1 &1514793807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2303,22 @@ PrefabInstance:
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: kickRadius
       value: 3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageAmount
+      value: 238.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageRadius
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: explosionRadius
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageMask.m_Bits
+      value: 4104
       objectReference: {fileID: 0}
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: magnitudeForExplosion
@@ -2558,6 +2603,22 @@ PrefabInstance:
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: kickRadius
       value: 3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageAmount
+      value: 238.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageRadius
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: explosionRadius
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageMask.m_Bits
+      value: 4104
       objectReference: {fileID: 0}
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: magnitudeForExplosion
@@ -3126,6 +3187,22 @@ PrefabInstance:
       value: 3.94
       objectReference: {fileID: 0}
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageAmount
+      value: 238.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageRadius
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: explosionRadius
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageMask.m_Bits
+      value: 4104
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: magnitudeForExplosion
       value: 5.76
       objectReference: {fileID: 0}
@@ -3357,6 +3434,22 @@ PrefabInstance:
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: kickRadius
       value: 3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageAmount
+      value: 238.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageRadius
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: explosionRadius
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
+      propertyPath: damageMask.m_Bits
+      value: 4104
       objectReference: {fileID: 0}
     - target: {fileID: 5416242093693459307, guid: 2a4133b51fc835c438acb006d6b6b09a, type: 3}
       propertyPath: magnitudeForExplosion

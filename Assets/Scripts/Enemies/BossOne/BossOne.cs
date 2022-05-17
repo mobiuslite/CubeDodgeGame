@@ -14,15 +14,21 @@ public class BossOne : Boss
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
-
-        audioDictionary = GetComponent<AudioDictionary>();
+        base.Init();
 
         steeringBehaviour = GetComponent<SteeringBehaviour>();
         steeringBehaviour.SetActive(false);
 
-        //Update UI
-        UIManager.Instance.SetBossMaxHealth(maxHealth);
+        //Set on damage code specific to this boss
+        health.OnTakeDamage += (sender, args) =>
+        {
+            if (!awake)
+            {
+                steeringBehaviour.SetActive(true);
+                stateMachine.Start();
+                awake = true;
+            }
+        };
 
         //Boss States
         CircleAttackState circleState = new CircleAttackState(10, 3, 0.1f, this);
@@ -37,7 +43,6 @@ public class BossOne : Boss
         stateMachine.SetProjectile(projectilePrefab);       
     }
 
-    // Update is called once per frame
     void Update()
     {
         stateMachine.Update(Time.deltaTime);
@@ -52,17 +57,5 @@ public class BossOne : Boss
     {
         Debug.Log("Death!");
         Destroy(gameObject);
-    }
-
-    protected override void TakeDamage(float amount)
-    {
-        base.TakeDamage(amount);
-
-        if (!awake)
-        {
-            steeringBehaviour.SetActive(true);
-            stateMachine.Start();
-            awake = true;
-        }
     }
 }

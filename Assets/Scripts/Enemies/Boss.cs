@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+[RequireComponent(typeof(Health))]
+public abstract class Boss : MonoBehaviour
 {
-    [SerializeField]
-    [Range(1.0f, 10000.0f)]
-    protected float maxHealth;
-    protected float currentHealth;
+    protected Health health;
 
     [SerializeField]
     LayerMask damageMask;
@@ -39,27 +37,36 @@ public class Boss : MonoBehaviour
         return audioDictionary;
     }
 
+    /// <summary>
+    /// Call this method on children "Start"
+    /// </summary>
+    protected void Init()
+    {
+        audioDictionary = GetComponent<AudioDictionary>();
+        health = GetComponent<Health>();
+
+        //Update UI
+        UIManager.Instance.SetBossMaxHealth(health.GetHealth());
+        health.OnTakeDamage += (sender, args) =>
+        {
+            float curHealth = health.GetHealth();
+            UIManager.Instance.SetBossHealth(curHealth);
+
+            if (curHealth <= 0.0f)
+            {
+                OnDeath();
+            }
+        };
+    }
+
+    protected abstract void OnDeath();
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if(LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+        if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
         {
-            TakeDamage(10.0f);
+            health.TakeDamage(10.0f);
         }
     }
 
-    protected virtual void OnDeath()
-    {
-    }
-
-    protected virtual void TakeDamage(float amount)
-    {
-        currentHealth -= amount;
-        UIManager.Instance.SetBossHealth(currentHealth);
-
-        if (currentHealth <= 0.0f)
-        {
-            currentHealth = 0.0f;
-            OnDeath();
-        }
-    }
 }

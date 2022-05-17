@@ -6,8 +6,6 @@ using UnityEditor;
 [CustomEditor(typeof(SoundSkip))]
 public class SoundSkipEditor : Editor
 {
-
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();

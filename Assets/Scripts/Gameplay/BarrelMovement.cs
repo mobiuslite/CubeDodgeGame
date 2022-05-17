@@ -14,6 +14,12 @@ public class BarrelMovement : MonoBehaviour
     [SerializeField]
     [Tooltip("The minimum magnitude needed to explode on contact")]
     float magnitudeForExplosion;
+    [SerializeField]
+    float damageAmount;
+    [SerializeField]
+    float damageRadius;
+    [SerializeField]
+    LayerMask damageMask;
 
     [Header("Effects")]
     [SerializeField]
@@ -126,16 +132,21 @@ public class BarrelMovement : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(0.0f, 1.0f, .0f, 0.25f);
-        Gizmos.DrawWireSphere(transform.position, kickRadius);
-    }
 
     private void Explode()
     {
         Debug.Log("Explode!");
         CameraShake.Instance.Shake(screenShakeIntensity, screenShakeTime);
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, damageRadius, damageMask);
+
+        foreach(Collider2D collider in hitColliders)
+        {
+            if(collider.gameObject.TryGetComponent<Health>(out Health health))
+            {
+                health.TakeDamage(damageAmount);
+            }
+        }
 
         storedEnergyLine.positionCount = 0;
 
@@ -158,5 +169,14 @@ public class BarrelMovement : MonoBehaviour
         {
             Explode();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0.0f, 1.0f, .0f, 0.25f);
+        Gizmos.DrawWireSphere(transform.position, kickRadius);
+
+        Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.25f);
+        Gizmos.DrawWireSphere(transform.position, damageRadius);
     }
 }

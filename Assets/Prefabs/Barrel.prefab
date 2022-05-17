@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5416242093693459308}
   - component: {fileID: 5416242093693459309}
-  - component: {fileID: 5416242093693459307}
   - component: {fileID: 5416242093693459306}
   - component: {fileID: 5416242093693459311}
+  - component: {fileID: 5416242093693459307}
   - component: {fileID: 5416242093693459310}
   m_Layer: 11
   m_Name: Barrel
@@ -88,23 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5416242093693459307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5416242093693459304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 333325d30b4859e42845b10d3af29543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frictionConstant: 1.83
-  kickRadius: 3.38
-  magnitudeForExplosion: 0
-  screenShakeIntensity: 8
-  screenShakeTime: 0.4
 --- !u!58 &5416242093693459306
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,6 +125,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &5416242093693459307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416242093693459304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 333325d30b4859e42845b10d3af29543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frictionConstant: 1.83
+  kickRadius: 3.38
+  magnitudeForExplosion: 0
+  screenShakeIntensity: 8
+  screenShakeTime: 0.4
 --- !u!120 &5416242093693459310
 LineRenderer:
   m_ObjectHideFlags: 0
