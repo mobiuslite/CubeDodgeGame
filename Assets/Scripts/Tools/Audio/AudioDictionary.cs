@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Holds a key value pair that allows a gameobject to have many audio clips. Use the key given in the inspector to play the sound
 [RequireComponent(typeof(AudioSource))]
 public class AudioDictionary : MonoBehaviour
 {
@@ -31,11 +32,16 @@ public class AudioDictionary : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays an audioclip from a key given
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns>bool: false if key doesn't exist, true if there are no errors</returns>
     public bool PlaySound(string key)
     {
         if (!audioKeys.TryGetValue(key, out AudioClip clip))
         {
-            Debug.LogError("Key does not exist in audio dictionary");
+            Debug.LogError($"Key \"{key}\" does not exist in audio dictionary for {gameObject.name}");
             return false;
         }
 

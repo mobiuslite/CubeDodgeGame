@@ -7,6 +7,8 @@ public class UICooldownViewer : MonoBehaviour
 {
     [SerializeField]
     PowerType powerType;
+    [SerializeField]
+    bool transparentOnFinish;
 
     Image image;
     CooldownAbility ability;
@@ -14,11 +16,18 @@ public class UICooldownViewer : MonoBehaviour
     private void Start()
     {
         image = GetComponent<Image>();
+        image.enabled = false;
 
         PlayerPowers powers = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPowers>();
         if(powerType == PowerType.Timestop)
         {
             ability = powers.GetTimestop();
+        }
+
+        if (transparentOnFinish)
+        {
+            ability.OnCooldownEnter += (sender, args) => EnableIcon();
+            ability.OnCooldownExit += (sender, args) => DisableIcon();
         }
     }
 
@@ -28,5 +37,16 @@ public class UICooldownViewer : MonoBehaviour
         {
             image.fillAmount = ability.CooldownValue();
         }
+    }
+
+    void EnableIcon()
+    {
+        image.fillAmount = ability.CooldownValue();
+        image.enabled = true;
+    }
+
+    void DisableIcon()
+    {
+        image.enabled = false;
     }
 }

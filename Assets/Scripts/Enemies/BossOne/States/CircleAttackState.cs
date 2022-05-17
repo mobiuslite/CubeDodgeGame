@@ -78,6 +78,6 @@ public class CircleAttackState : BossState
             curAngle += angleBetweenBullet;
         }
 
-        boss.GetAudioDictionary().PlaySound("projectile_file");
+        boss.GetAudioDictionary().PlaySound("projectile_fire");
     }
 }

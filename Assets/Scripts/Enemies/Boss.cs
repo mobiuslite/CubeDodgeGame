@@ -20,6 +20,10 @@ public class Boss : MonoBehaviour
         stateMachine = new BossStateMachine();
     }
 
+    /// <summary>
+    /// Returns the name of the current state the boss is in
+    /// </summary>
+    /// <returns>string: current state name</returns>
     public string GetCurrentState()
     {
         if(stateMachine == null || stateMachine.GetState() == null)
@@ -39,19 +43,23 @@ public class Boss : MonoBehaviour
     {
         if(LayerTools.IsInLayerMask(collision.gameObject, damageMask))
         {
-            currentHealth -= 10.0f;
-            UIManager.Instance.SetBossHealth(currentHealth);
-
-            if(currentHealth <= 0.0f)
-            {
-                currentHealth = 0.0f;
-                OnDeath();
-            }
+            TakeDamage(10.0f);
         }
     }
 
     protected virtual void OnDeath()
     {
+    }
 
+    protected virtual void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+        UIManager.Instance.SetBossHealth(currentHealth);
+
+        if (currentHealth <= 0.0f)
+        {
+            currentHealth = 0.0f;
+            OnDeath();
+        }
     }
 }

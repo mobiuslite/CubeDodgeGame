@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A state machine that controls how the boss attacks.
+/// Make sure to call update every frame
+/// </summary>
 public class BossStateMachine
 {
     GameObject projectile;

@@ -24,11 +24,11 @@ public class PPManager : MonoBehaviour
         timestopPP = GetComponentInChildren<Volume>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("PP"))
+        if (other.gameObject.CompareTag("PP"))
         {
-            currentPP = collision.gameObject.GetComponent<Volume>();
+            currentPP = other.gameObject.GetComponent<Volume>();
         }
     }
 

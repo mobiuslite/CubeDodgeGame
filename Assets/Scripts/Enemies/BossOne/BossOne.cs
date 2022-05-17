@@ -45,7 +45,18 @@ public class BossOne : Boss
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
+        base.OnCollisionEnter2D(collision);     
+    }
+
+    protected override void OnDeath()
+    {
+        Debug.Log("Death!");
+        Destroy(gameObject);
+    }
+
+    protected override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
 
         if (!awake)
         {
@@ -53,11 +64,5 @@ public class BossOne : Boss
             stateMachine.Start();
             awake = true;
         }
-    }
-
-    protected override void OnDeath()
-    {
-        Debug.Log("Death!");
-        Destroy(gameObject);
     }
 }

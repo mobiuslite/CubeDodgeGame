@@ -13,6 +13,9 @@ public class CooldownAbility
     public event EventHandler OnAbilityEnter = delegate { };
     public event EventHandler OnAbilityExit = delegate { };
 
+    public event EventHandler OnCooldownEnter = delegate { };
+    public event EventHandler OnCooldownExit = delegate { };
+
     [SerializeField]
     float cooldownLength;
     [SerializeField]
@@ -41,17 +44,16 @@ public class CooldownAbility
         abilityActive = true;
 
         OnAbilityEnter(this, new EventArgs());
+
+        elapsedAbility = 0.0f;
+        elapsedCooldown = 0.0f;
     }
 
     public void CancelAbility()
     {
         if (abilityActive)
         {
-            abilityActive = false;
-            cooldownActive = true;
-            elapsedAbility = 0.0f;
-
-            OnAbilityExit(this, new EventArgs());
+            StopAbility();
         }
     }
 
@@ -90,11 +92,7 @@ public class CooldownAbility
             //Ability is finished, enable cooldown
             if(elapsedAbility >= abilityLength)
             {
-                abilityActive = false;
-                cooldownActive = true;
-                elapsedAbility = 0.0f;
-
-                OnAbilityExit(this, new EventArgs());
+                StopAbility();
             }
         }
 
@@ -105,9 +103,23 @@ public class CooldownAbility
             //Cooldown is finished
             if(elapsedCooldown >= cooldownLength)
             {
-                cooldownActive = false;
-                elapsedCooldown = 0.0f;
+                StopCooldown();
             }
         }
+    }
+
+    private void StopAbility()
+    {
+        abilityActive = false;
+        cooldownActive = true;
+
+        OnAbilityExit(this, new EventArgs());
+        OnCooldownEnter(this, new EventArgs());
+    }
+
+    private void StopCooldown()
+    {
+        cooldownActive = false;
+        OnCooldownExit(this, new EventArgs());
     }
 }
