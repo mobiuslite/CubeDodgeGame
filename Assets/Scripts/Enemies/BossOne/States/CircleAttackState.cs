@@ -72,10 +72,13 @@ public class CircleAttackState : BossState
             Vector3 dir = (boss.transform.position + new Vector3(x, y, 0.0f)) - boss.transform.position;
             dir.Normalize();
 
-            GameObject newBullet = Object.Instantiate(parent.GetProjectile(), boss.transform.position, Quaternion.identity);
-            newBullet.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
+            if (parent.TryGetDamageObject("projectile", out GameObject bulletPrefab)) {
 
-            curAngle += angleBetweenBullet;
+                GameObject newBullet = Object.Instantiate(bulletPrefab, boss.transform.position, Quaternion.identity);
+                newBullet.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
+
+                curAngle += angleBetweenBullet;
+            }
         }
 
         boss.GetAudioDictionary().PlaySound("projectile_fire");

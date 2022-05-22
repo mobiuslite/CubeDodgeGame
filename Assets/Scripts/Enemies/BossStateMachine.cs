@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class BossStateMachine
 {
-    GameObject projectile;
+    Dictionary<string, GameObject> damageObjects;
 
     List<BossState> states;
     BossState curState;
@@ -16,7 +16,9 @@ public class BossStateMachine
 
     public BossStateMachine()
     {
-        states = new List<BossState>();
+        states = new();
+        damageObjects = new();
+
         isRunning = false;
     }
 
@@ -46,14 +48,14 @@ public class BossStateMachine
         }
     }
 
-    public void SetProjectile(GameObject prj)
+    public void AddDamageObject(string key, GameObject value)
     {
-        projectile = prj;
+        damageObjects.Add(key, value);
     }
 
-    public GameObject GetProjectile()
+    public bool TryGetDamageObject(string key, out GameObject obj)
     {
-        return projectile;
+        return damageObjects.TryGetValue(key, out obj);
     }
 
     public BossState GetState()

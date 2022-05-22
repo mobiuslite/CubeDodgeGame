@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,23 @@ public abstract class Boss : MonoBehaviour
     protected Health health;
 
     [SerializeField]
-    LayerMask damageMask;
+    LayerMask takeDamageFromMask;
 
     protected BossStateMachine stateMachine;
     protected AudioDictionary audioDictionary;
+
+
+    //Projectiles/Damage Objects
+    [SerializeField]
+    List<DamageObjectKey> damageObjectKeys;
+
+    [Serializable]
+    private struct DamageObjectKey
+    {
+        public GameObject obj;
+        public string key;
+    }
+
 
     public Boss()
     {
@@ -42,6 +56,13 @@ public abstract class Boss : MonoBehaviour
     /// </summary>
     protected void Init()
     {
+        //Add damage objects to state machine
+        foreach (DamageObjectKey pair in damageObjectKeys)
+        {
+            stateMachine.AddDamageObject(pair.key, pair.obj);
+        }
+
+
         audioDictionary = GetComponent<AudioDictionary>();
         health = GetComponent<Health>();
 
@@ -63,7 +84,7 @@ public abstract class Boss : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+        if (LayerTools.IsInLayerMask(collision.gameObject, takeDamageFromMask))
         {
             health.TakeDamage(10.0f);
         }

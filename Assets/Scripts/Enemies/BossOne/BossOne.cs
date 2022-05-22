@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class BossOne : Boss
 {
-    [SerializeField]
-    GameObject projectilePrefab;
-
     SteeringBehaviour steeringBehaviour;
-
     bool awake = false;
 
     // Start is called before the first frame update
@@ -38,9 +34,7 @@ public class BossOne : Boss
         idleState.AddTransition(1, circleState);
 
         stateMachine.AddState(idleState);
-        stateMachine.AddState(circleState);  
-
-        stateMachine.SetProjectile(projectilePrefab);       
+        stateMachine.AddState(circleState);
     }
 
     void Update()

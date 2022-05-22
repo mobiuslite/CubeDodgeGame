@@ -89,7 +89,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
             {
-                Debug.Log("Take Damage!");
+                //TODO: Take damage
+                Debug.Log("Player Take Damage!");
             }
 
             if (LayerTools.IsInLayerMask(collision.gameObject, knockbackMask))
