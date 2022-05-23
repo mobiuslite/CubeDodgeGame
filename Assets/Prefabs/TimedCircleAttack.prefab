@@ -217,7 +217,7 @@ MonoBehaviour:
   circle: {fileID: 8841565280020593059}
   visuals: {fileID: 8841565281224080358}
   radius: 3.5
-  timeToExplosion: 0.55
+  timeToExplosion: 0.8
   damageMask:
     serializedVersion: 2
     m_Bits: 8
@@ -239,7 +239,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.74
   Loop: 0
   Mute: 0
   Spatialize: 0

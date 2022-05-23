@@ -10,13 +10,13 @@ public class TimedCircleState : BossState
     float elapsedAttackingTime;
     float elapsedBetweenTime;
 
-    Transform playerTransform;
+    PlayerMovement player;
 
     public TimedCircleState(float timeAttacking, float timeBetweenAttacks,  Boss boss) : base("Timed Circle State", boss)
     {
         this.timeAttacking = timeAttacking;
         this.timeBwtAttacks = timeBetweenAttacks;
-        playerTransform = null;
+        player = null;
     }
 
     public override void Update(float dt)
@@ -34,7 +34,10 @@ public class TimedCircleState : BossState
         if (elapsedBetweenTime >= usedTimeBwtAttack)
         {
             elapsedBetweenTime = 0.0f;
-            Attack(playerTransform.position);
+
+            const float futureTime = 0.33f;
+            Vector3 futurePlayerPosition = (Vector2)player.transform.position + (player.GetVelocity() * futureTime);
+            Attack(futurePlayerPosition);
         }
     }
 
@@ -44,9 +47,9 @@ public class TimedCircleState : BossState
         elapsedAttackingTime = 0.0f;
         elapsedBetweenTime = 0.0f;
 
-        if(playerTransform == null)
+        if(player == null)
         {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         }
     }
 

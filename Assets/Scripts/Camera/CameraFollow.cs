@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     Transform bossTransform;
 
+    //TODO: Add cursor above boss like in dark souls to show the camera is locked onto the boss
     bool followBoss = true;
 
     // Start is called before the first frame update

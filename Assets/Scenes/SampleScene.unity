@@ -2276,8 +2276,8 @@ MonoBehaviour:
   - {x: 0.5, y: 0.5, z: 0}
   - {x: 0.5, y: -0.49999994, z: 0}
   m_ShapePathHash: 0
-  m_Mesh: {fileID: 1459411947}
-  m_InstanceId: 28152
+  m_Mesh: {fileID: 1396455740}
+  m_InstanceId: 41458
 --- !u!114 &1392148901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,7 +2461,7 @@ MonoBehaviour:
   takeHits: 0
   numHits: 0
   maxHealth: 4000
---- !u!43 &1459411947
+--- !u!43 &1396455740
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3412,7 +3412,7 @@ MonoBehaviour:
   knockbackAmount: 70
   dashLength: 0.084
   dashMultiplier: 7.4
-  dashCooldown: 1.58
+  dashCooldown: 1.49
   dashTrailLength: 0.35
 --- !u!114 &1957294923
 MonoBehaviour:
@@ -4016,8 +4016,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086810138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.38, y: -0.95, z: 0}
-  m_LocalScale: {x: 40.790344, y: 32.151104, z: 1.0740438}
+  m_LocalPosition: {x: -2.7516, y: -2.002, z: 0}
+  m_LocalScale: {x: 82.25373, y: 64.8327, z: 2.1658092}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3786738}

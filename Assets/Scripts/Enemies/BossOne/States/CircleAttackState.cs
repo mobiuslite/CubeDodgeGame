@@ -44,7 +44,7 @@ public class CircleAttackState : BossState
 
             numAttacksCompleted++;
 
-            curAngle += atLowHealth ? angleBetweenAttacks * 1.5f : angleBetweenAttacks;
+            curAngle += angleBetweenAttacks;
         }
 
         

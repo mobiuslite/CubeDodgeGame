@@ -12,6 +12,9 @@ public class BossStateMachine
     List<BossState> states;
     BossState curState;
 
+    //TODO: Allow mixing of states
+    BossState secondState;
+
     bool isRunning;
 
     public BossStateMachine()

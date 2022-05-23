@@ -114,6 +114,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public Vector2 GetVelocity()
+    {
+        return velocity;
+    }
+
     public void Knockback(Vector2 velocity)
     {
         this.velocity = velocity;
