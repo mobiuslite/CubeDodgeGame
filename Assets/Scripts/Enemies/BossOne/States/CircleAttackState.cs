@@ -29,6 +29,11 @@ public class CircleAttackState : BossState
     // Update is called once per frame
     public override void Update(float dt)
     {
+
+        //Increase number of attacks at low health
+        int usedNumAttacks = boss.GetHealth().GetHealth() < boss.GetHealth().GetMaxHealth() * 0.5f ? numAttacks * 4 : numAttacks;
+        bool atLowHealth = usedNumAttacks != numAttacks;
+
         //Attack the number of times given, and wait the amount of time given between attacks
         elapsedAttackTime += dt;
         if(elapsedAttackTime >= attackTime)
@@ -38,10 +43,12 @@ public class CircleAttackState : BossState
             Attack(curAngle);
 
             numAttacksCompleted++;
-            curAngle += angleBetweenAttacks;
+
+            curAngle += atLowHealth ? angleBetweenAttacks * 1.5f : angleBetweenAttacks;
         }
 
-        if(numAttacksCompleted == numAttacks)
+        
+        if(numAttacksCompleted == usedNumAttacks)
         {
             curCondition = 1;
         }
@@ -56,6 +63,7 @@ public class CircleAttackState : BossState
         curAngle = 0;
     }
 
+    //TODO: Turn into object pooling for increased performance 
     void Attack(float curAngle)
     {
         for (int i = 0; i <= numBullets; i++)

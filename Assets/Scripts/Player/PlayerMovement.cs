@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Handles player movement, dashing, and collision
+[RequireComponent(typeof(Health))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(0.001f, 0.1f)]
     float smoothing;
     [SerializeField]
-    LayerMask damageMask;
+    LayerMask takeDamageFromMask;
     [Space]
     [SerializeField]
     LayerMask knockbackMask;
@@ -37,12 +38,24 @@ public class PlayerMovement : MonoBehaviour
     Vector2 velocity;
 
     CooldownAbility dash;
+    Health health;
 
     void Start()
     {
         controller = GetComponent<Controller>();
         boxCollider = GetComponent<BoxCollider2D>();
         dashTrail = GetComponent<TrailRenderer>();
+        health = GetComponent<Health>();
+
+        UIManager.Instance.ResetPlayerHealthUI();
+        health.OnTakeDamage += (sender, args) => 
+        {
+            //Makes it so that the UI dissapears from left to right
+            int index = (int)health.GetHealth() - (int)health.GetMaxHealth() + 1;
+            index *= -1;
+
+            UIManager.Instance.RemovePlayerHealthUI(index);
+        };
 
         velocity = Vector2.zero;
 
@@ -87,9 +100,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!dash.AbilityIsActive())
         {
-            if (LayerTools.IsInLayerMask(collision.gameObject, damageMask))
+            if (LayerTools.IsInLayerMask(collision.gameObject, takeDamageFromMask))
             {
-                //TODO: Take damage
+                health.TakeDamage(1.0f);
                 Debug.Log("Player Take Damage!");
             }
 

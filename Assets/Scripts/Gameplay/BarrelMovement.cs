@@ -4,6 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class BarrelMovement : MonoBehaviour
 {
     [SerializeField]
@@ -27,6 +29,8 @@ public class BarrelMovement : MonoBehaviour
     [Range(0.01f, 5.0f)]
     [SerializeField]
     float screenShakeTime = 0.4f;
+    [SerializeField]
+    AudioClip explosionSound;
 
     bool closeToPlayer;
 
@@ -34,6 +38,8 @@ public class BarrelMovement : MonoBehaviour
 
     Rigidbody2D rb;
     LineRenderer storedEnergyLine;
+    AudioSource audioSrc;
+    SpriteRenderer spriteRenderer;
 
     Vector2 storedEnergy;
 
@@ -43,6 +49,8 @@ public class BarrelMovement : MonoBehaviour
         playerPowers = player.GetComponent<PlayerPowers>();
 
         rb = GetComponent<Rigidbody2D>();
+        audioSrc = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         storedEnergyLine = GetComponent<LineRenderer>();
         storedEnergyLine.positionCount = 2;
@@ -146,7 +154,7 @@ public class BarrelMovement : MonoBehaviour
             {
                 health.TakeDamage(damageAmount);
             }
-        }
+        }  
 
         storedEnergyLine.positionCount = 0;
 
@@ -154,18 +162,20 @@ public class BarrelMovement : MonoBehaviour
         if (playerPowers.GetClosestBarrel() == this)
             playerPowers.SetClosestBarrel(null);
 
-        Destroy(gameObject);
+        //Disable visuals, and make sound.
+        audioSrc.PlayOneShot(explosionSound);
+        spriteRenderer.enabled = false;
+        rb.simulated = false;
+
+        Destroy(gameObject, explosionSound.length);
+
+        this.enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //If the collision gameobject is a bullet, explode
-        if (collision.gameObject.CompareTag("playerBullet"))
-        {
-            Explode();
-        }
-
-        if(rb.velocity.magnitude > magnitudeForExplosion)
+        //If the collision gameobject is a bullet or hits something with high magnitude, explode
+        if (collision.gameObject.CompareTag("playerBullet") || rb.velocity.magnitude > magnitudeForExplosion)
         {
             Explode();
         }

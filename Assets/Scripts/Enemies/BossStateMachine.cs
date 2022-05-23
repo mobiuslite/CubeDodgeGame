@@ -55,7 +55,13 @@ public class BossStateMachine
 
     public bool TryGetDamageObject(string key, out GameObject obj)
     {
-        return damageObjects.TryGetValue(key, out obj);
+        bool found = damageObjects.TryGetValue(key, out obj);
+        if (!found)
+        {
+            Debug.LogError($"Key \"{key}\" not found in damage object dictionary");
+        }
+
+        return found; 
     }
 
     public BossState GetState()

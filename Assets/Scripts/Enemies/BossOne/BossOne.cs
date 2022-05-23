@@ -28,13 +28,19 @@ public class BossOne : Boss
 
         //Boss States
         CircleAttackState circleState = new CircleAttackState(10, 3, 0.1f, this);
-        IdleState idleState = new IdleState(4.0f, this);
+        IdleState idleState = new IdleState(2.0f, this);
+        TimedCircleState timedState = new TimedCircleState(5.0f, .75f, this);
 
         circleState.AddTransition(1, idleState);
+
         idleState.AddTransition(1, circleState);
+        idleState.AddTransition(2, timedState);
+
+        timedState.AddTransition(1, circleState);
 
         stateMachine.AddState(idleState);
         stateMachine.AddState(circleState);
+        stateMachine.AddState(timedState);
     }
 
     void Update()
@@ -49,7 +55,7 @@ public class BossOne : Boss
 
     protected override void OnDeath()
     {
-        Debug.Log("Death!");
+        Debug.Log("Death of Boss One!");
         Destroy(gameObject);
     }
 }

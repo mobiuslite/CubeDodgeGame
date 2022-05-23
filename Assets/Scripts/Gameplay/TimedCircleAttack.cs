@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class TimedCircleAttack : MonoBehaviour
 {
     [Header("Game objects")]
@@ -27,21 +28,37 @@ public class TimedCircleAttack : MonoBehaviour
     [SerializeField]
     float screenShakeTime = 0.4f;
 
-    private void Start()
+    AudioSource audioSrc;
+
+    [Header("Audio")]
+    [SerializeField]
+    AudioClip riser;
+    [SerializeField]
+    AudioClip explosion;
+
+    private void Awake()
     {
         SetVisualsScale(radius);
         circle.transform.localScale = Vector3.zero;
+
+        audioSrc = GetComponent<AudioSource>();
     }
 
     public void StartAttack()
     {
-        LTDescr scaleTween = circle.transform.LeanScale(Vector3.one, timeToExplosion);
+        LeanTween.cancel(gameObject);
+        LTDescr scaleTween = LeanTween.value(gameObject, 0.0f, 1.0f, timeToExplosion).setOnUpdate((value) =>
+        {
+            circle.transform.localScale = new Vector3(value, value);
+        });
 
         scaleTween.setEaseLinear();
         scaleTween.setOnComplete(() =>
         {
             Explode();
         });
+
+        audioSrc.PlayOneShot(riser);
     }
 
     void Explode()
@@ -59,7 +76,12 @@ public class TimedCircleAttack : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        //Make sound and disable visuals
+        audioSrc.PlayOneShot(explosion);
+        visuals.SetActive(false);
+
+        //Delete after sound is finished
+        Destroy(gameObject, explosion.length);
     }
 
     void SetVisualsScale(float scale)

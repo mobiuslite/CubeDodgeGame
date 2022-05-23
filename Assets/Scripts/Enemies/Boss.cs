@@ -67,17 +67,22 @@ public abstract class Boss : MonoBehaviour
         health = GetComponent<Health>();
 
         //Update UI
-        UIManager.Instance.SetBossMaxHealth(health.GetHealth());
+        UIManager.Instance.SetBossMaxHealthUI(health.GetHealth());
         health.OnTakeDamage += (sender, args) =>
         {
             float curHealth = health.GetHealth();
-            UIManager.Instance.SetBossHealth(curHealth);
-
-            if (curHealth <= 0.0f)
-            {
-                OnDeath();
-            }
+            UIManager.Instance.SetBossHealthUI(curHealth);
         };
+
+        health.OnDeath += (sender, args) =>
+        {
+            OnDeath();
+        };
+    }
+
+    public Health GetHealth()
+    {
+        return health;
     }
 
     protected abstract void OnDeath();

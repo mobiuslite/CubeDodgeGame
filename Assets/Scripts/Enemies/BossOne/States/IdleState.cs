@@ -18,7 +18,9 @@ public class IdleState : BossState
         elapsedIdleTime += dt;
         if(elapsedIdleTime >= idleTime)
         {
-            curCondition = 1;
+
+            //1 or 2, random chance
+            curCondition = Random.Range(1, 3);
         }
     }
 
