@@ -74,8 +74,8 @@ public class CircleAttackState : BossState
             const float radius = 1.0f;
             const float bulletSpeed = 15.0f;
 
-            float x = radius * Mathf.Sin(curAngle);
-            float y = radius * Mathf.Cos(curAngle);
+            float x = radius * Mathf.Sin(curAngle * Mathf.Deg2Rad);
+            float y = radius * Mathf.Cos(curAngle * Mathf.Deg2Rad);
 
             Vector3 dir = (boss.transform.position + new Vector3(x, y, 0.0f)) - boss.transform.position;
             dir.Normalize();
